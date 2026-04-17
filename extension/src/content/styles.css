@@ -1,0 +1,110 @@
+.gdc-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font: 600 11px/1.2 -apple-system, system-ui, sans-serif;
+  color: #fff;
+  background: #6b7280;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  z-index: 2147483640;
+  user-select: none;
+}
+
+.gdc-badge-label {
+  white-space: nowrap;
+}
+
+.gdc-badge-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font: inherit;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  max-width: 160px;
+}
+
+.gdc-badge-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.gdc-badge.gdc-disabled {
+  filter: saturate(0.6);
+}
+
+.gdc-status-new { background: #6b7280; }
+.gdc-status-rej-complex { background: #b45353; }
+.gdc-status-rej-cell { background: #9c4848; }
+.gdc-status-rej-other { background: #7a3f3f; }
+.gdc-status-todo { background: #c98a17; }
+.gdc-status-done { background: #2f8f4e; }
+
+div.rprt .rslt {
+  position: relative;
+}
+
+.gdc-tinted.gdc-status-new { background-color: rgba(107, 114, 128, 0.06); }
+.gdc-tinted.gdc-status-rej-complex { background-color: rgba(180, 83, 83, 0.10); }
+.gdc-tinted.gdc-status-rej-cell { background-color: rgba(156, 72, 72, 0.10); }
+.gdc-tinted.gdc-status-rej-other { background-color: rgba(122, 63, 63, 0.10); }
+.gdc-tinted.gdc-status-todo { background-color: rgba(201, 138, 23, 0.12); }
+.gdc-tinted.gdc-status-done { background-color: rgba(47, 143, 78, 0.12); }
+
+.gdc-conn-indicator {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #9ca3af;
+  box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(0, 0, 0, 0.25);
+  z-index: 2147483646;
+}
+.gdc-conn-online { background: #2f8f4e; }
+.gdc-conn-offline { background: #9ca3af; }
+
+.gdc-detail-widget {
+  position: fixed;
+  top: 12px;
+  right: 36px;
+  z-index: 2147483645;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: 12px/1.3 -apple-system, system-ui, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  max-width: 260px;
+}
+
+.gdc-reason-input {
+  font: 12px/1.3 -apple-system, system-ui, sans-serif;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px 6px;
+  resize: vertical;
+  min-height: 36px;
+}
+
+.gdc-detail-widget .gdc-badge {
+  position: static;
+}
+
+.gdc-detail-widget-title {
+  color: #374151;
+  font-weight: 600;
+}

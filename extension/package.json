@@ -1,0 +1,29 @@
+{
+  "name": "geo-dataset-collector-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:chrome": "TARGET=chrome vite build",
+    "build:firefox": "TARGET=firefox vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "sign:firefox": "npm run build && dotenv -e .env -- web-ext sign --source-dir=dist/firefox --artifacts-dir=dist/firefox-xpi --channel=unlisted"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^20.12.7",
+    "dotenv-cli": "^7.4.2",
+    "jsdom": "^24.0.0",
+    "typescript": "^5.4.5",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4",
+    "web-ext": "^10.1.0",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "dependencies": {
+    "webextension-polyfill": "^0.10.0"
+  }
+}

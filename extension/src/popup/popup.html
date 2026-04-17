@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GEO Dataset Collector</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="gdc-popup">
+      <h1>GEO Dataset Collector</h1>
+      <section>
+        <div class="row">
+          <span class="label">Backend</span>
+          <code id="backend-url">http://127.0.0.1:8000</code>
+        </div>
+        <div class="row">
+          <span class="label">Status</span>
+          <span id="health-dot" class="dot offline"></span>
+          <span id="health-text">Unknown</span>
+        </div>
+        <div class="row">
+          <span class="label">Last check</span>
+          <span id="last-check">—</span>
+        </div>
+      </section>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

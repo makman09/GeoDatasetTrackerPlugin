@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font: 13px/1.4 -apple-system, system-ui, sans-serif;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.gdc-popup {
+  width: 280px;
+  padding: 14px 16px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  color: #6b7280;
+  min-width: 72px;
+}
+
+code {
+  font: 11px/1 ui-monospace, Menlo, monospace;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot.online { background: #2f8f4e; }
+.dot.offline { background: #9ca3af; }
