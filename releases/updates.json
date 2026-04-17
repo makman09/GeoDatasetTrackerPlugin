@@ -1,0 +1,16 @@
+{
+  "addons": {
+    "geo-dataset-collector@local.dev": {
+      "updates": [
+        {
+          "version": "0.1.2",
+          "update_link": "https://raw.githubusercontent.com/makman09/GeoDatasetTrackerPlugin/main/releases/xpis/geo_dataset_collector-0.1.2.xpi"
+        },
+        {
+          "version": "0.1.3",
+          "update_link": "https://raw.githubusercontent.com/makman09/GeoDatasetTrackerPlugin/main/releases/xpis/geo_dataset_collector-0.1.3.xpi"
+        }
+      ]
+    }
+  }
+}

@@ -9,7 +9,7 @@
     "build:firefox": "TARGET=firefox vite build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "sign:firefox": "npm run build && dotenv -e .env -- web-ext sign --source-dir=dist/firefox --artifacts-dir=dist/firefox-xpi --channel=unlisted"
+    "release:firefox": "node scripts/release-firefox.mjs"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",
