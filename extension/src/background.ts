@@ -12,7 +12,18 @@ chrome.runtime.onStartup.addListener(() => {
 
 startHealthPolling();
 
-chrome.runtime.onMessage.addListener((raw, _sender, sendResponse) => {
+const ALLOWED_SENDER_URL_PREFIX = "https://www.ncbi.nlm.nih.gov/";
+
+chrome.runtime.onMessage.addListener((raw, sender, sendResponse) => {
+  if (sender.id !== chrome.runtime.id) {
+    sendResponse({ error: "sender not trusted" });
+    return false;
+  }
+  const fromContentScript = typeof sender.tab?.id === "number";
+  if (fromContentScript && !sender.url?.startsWith(ALLOWED_SENDER_URL_PREFIX)) {
+    sendResponse({ error: "sender origin not allowed" });
+    return false;
+  }
   const msg = raw as BridgeMessage;
   (async () => {
     try {

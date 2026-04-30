@@ -1,12 +1,13 @@
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Path, Query, status
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, func, select
 
 from app.db import get_session
 from app.models import GeoDataset, Status
 from app.schemas import (
+    ACCESSION_PATTERN,
     DatasetCreate,
     DatasetListResponse,
     DatasetPatch,
@@ -16,6 +17,12 @@ from app.schemas import (
 )
 
 router = APIRouter()
+
+AccessionPath = Path(..., pattern=ACCESSION_PATTERN, max_length=20)
+
+
+def _escape_like(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
 
 
 @router.get("/healthz")
@@ -27,7 +34,7 @@ def healthz() -> dict[str, bool]:
 def list_datasets(
     session: Session = Depends(get_session),
     status: Status | None = Query(default=None),
-    q: str | None = Query(default=None),
+    q: str | None = Query(default=None, max_length=200),
     limit: int = Query(default=50, ge=1, le=500),
     offset: int = Query(default=0, ge=0),
 ) -> DatasetListResponse:
@@ -37,9 +44,9 @@ def list_datasets(
         stmt = stmt.where(GeoDataset.status == status)
         count_stmt = count_stmt.where(GeoDataset.status == status)
     if q:
-        pattern = f"%{q}%"
-        stmt = stmt.where(GeoDataset.title.ilike(pattern))
-        count_stmt = count_stmt.where(GeoDataset.title.ilike(pattern))
+        pattern = f"%{_escape_like(q)}%"
+        stmt = stmt.where(GeoDataset.title.ilike(pattern, escape="\\"))
+        count_stmt = count_stmt.where(GeoDataset.title.ilike(pattern, escape="\\"))
     stmt = stmt.order_by(GeoDataset.created_at.desc()).offset(offset).limit(limit)
     items = session.exec(stmt).all()
     total = session.exec(count_stmt).one()
@@ -50,7 +57,10 @@ def list_datasets(
 
 
 @router.get("/datasets/{accession}", response_model=DatasetRead)
-def get_dataset(accession: str, session: Session = Depends(get_session)) -> DatasetRead:
+def get_dataset(
+    accession: str = AccessionPath,
+    session: Session = Depends(get_session),
+) -> DatasetRead:
     row = session.exec(select(GeoDataset).where(GeoDataset.accession == accession)).first()
     if row is None:
         raise HTTPException(status_code=404, detail="dataset not found")
@@ -79,8 +89,8 @@ def create_dataset(
 
 @router.patch("/datasets/{accession}", response_model=DatasetRead)
 def patch_dataset(
-    accession: str,
     payload: DatasetPatch,
+    accession: str = AccessionPath,
     session: Session = Depends(get_session),
 ) -> DatasetRead:
     row = session.exec(select(GeoDataset).where(GeoDataset.accession == accession)).first()
@@ -97,7 +107,10 @@ def patch_dataset(
 
 
 @router.delete("/datasets/{accession}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_dataset(accession: str, session: Session = Depends(get_session)) -> None:
+def delete_dataset(
+    accession: str = AccessionPath,
+    session: Session = Depends(get_session),
+) -> None:
     row = session.exec(select(GeoDataset).where(GeoDataset.accession == accession)).first()
     if row is None:
         raise HTTPException(status_code=404, detail="dataset not found")

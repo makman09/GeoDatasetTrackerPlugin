@@ -41,12 +41,17 @@ def test_create_duplicate_is_409(client):
 
 
 def test_get_missing_is_404(client):
-    r = client.get("/datasets/GSE_DOES_NOT_EXIST")
+    r = client.get("/datasets/GSE99999999")
     assert r.status_code == 404
 
 
+def test_get_invalid_accession_is_422(client):
+    r = client.get("/datasets/GSE_DOES_NOT_EXIST")
+    assert r.status_code == 422
+
+
 def test_patch_missing_is_404(client):
-    r = client.patch("/datasets/GSE_NONE", json={"status": "COLLECTED_TODO"})
+    r = client.patch("/datasets/GSE99999999", json={"status": "COLLECTED_TODO"})
     assert r.status_code == 404
 
 

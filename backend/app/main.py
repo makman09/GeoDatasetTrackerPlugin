@@ -34,4 +34,5 @@ app.include_router(datasets_router)
 
 @app.on_event("startup")
 def _startup() -> None:
-    _run_migrations()
+    if os.environ.get("RUN_MIGRATIONS_ON_START") == "1":
+        _run_migrations()

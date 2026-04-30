@@ -7,4 +7,5 @@ services:
       - ./backend/data:/data
     environment:
       - DATABASE_URL=sqlite:////data/geo.db
+      - RUN_MIGRATIONS_ON_START=1
     restart: unless-stopped
