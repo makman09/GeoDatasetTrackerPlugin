@@ -36,7 +36,21 @@ No signed build — install unpacked:
 
 Chrome unpacked extensions persist across browser restarts.
 
-## Development
+## Backend (quickstart)
+
+```sh
+docker compose up -d
+```
+
+This starts the FastAPI backend on `http://localhost:8000`. Data is persisted in `backend/data/geo.db`. Database migrations run automatically on startup.
+
+To rebuild after backend code changes:
+
+```sh
+docker compose up -d --build
+```
+
+## Extension development
 
 ```sh
 cd extension
